@@ -1,4 +1,5 @@
-import datetime, json, jwt
+import json, jwt
+from datetime import datetime, timedelta
 
 from django.test import TestCase
 
@@ -50,7 +51,10 @@ class ContentTest(TestCase):
 
     def test_create_post_success(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -70,7 +74,10 @@ class ContentTest(TestCase):
 
     def test_create_key_error(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -102,23 +109,17 @@ class ContentTest(TestCase):
                         {
                             "post": "i'm wecoder3",
                             "author": "Mark",
-                            "created_at": datetime.datetime.now().strftime(
-                                "%Y-%m-%d %H:%M:%S"
-                            ),
+                            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         },
                         {
                             "post": "i'm wecoder2",
                             "author": "Mark",
-                            "created_at": datetime.datetime.now().strftime(
-                                "%Y-%m-%d %H:%M:%S"
-                            ),
+                            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         },
                         {
                             "post": "i'm wecoder1",
                             "author": "Mark",
-                            "created_at": datetime.datetime.now().strftime(
-                                "%Y-%m-%d %H:%M:%S"
-                            ),
+                            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         },
                     ],
                 }
@@ -136,7 +137,7 @@ class ContentTest(TestCase):
                 "Result": {
                     "post": "i'm wecoder1",
                     "author": "Mark",
-                    "created_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 }
             },
         )
@@ -150,7 +151,10 @@ class ContentTest(TestCase):
 
     def test_post_edit_not_authorization_user(self):
         access_token = jwt.encode(
-            {"id": 2},
+            {
+                "id": 2,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -169,7 +173,10 @@ class ContentTest(TestCase):
 
     def test_post_edit_success(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -188,7 +195,10 @@ class ContentTest(TestCase):
 
     def test_post_edit_key_error(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -207,7 +217,10 @@ class ContentTest(TestCase):
 
     def test_post_edit_does_not_exist(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -226,7 +239,10 @@ class ContentTest(TestCase):
 
     def test_post_delete_not_authorization_user(self):
         access_token = jwt.encode(
-            {"id": 2},
+            {
+                "id": 2,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -240,7 +256,10 @@ class ContentTest(TestCase):
 
     def test_post_delete_success(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )
@@ -253,7 +272,10 @@ class ContentTest(TestCase):
 
     def test_post_delete_does_not_exist(self):
         access_token = jwt.encode(
-            {"id": 1},
+            {
+                "id": 1,
+                "exp": datetime.utcnow() + timedelta(minutes=10),
+            },
             SECRET_KEY,
             algorithm="HS256",
         )

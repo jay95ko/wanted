@@ -1,4 +1,5 @@
 import json, re, jwt, bcrypt
+from datetime import datetime, timedelta
 
 from django.views import View
 from django.http import JsonResponse
@@ -56,7 +57,14 @@ class LoginView(View):
             ):
                 return JsonResponse({"Message": "INVALID_PASSWORD"}, status=403)
 
-            access_token = jwt.encode({"id": user.id}, SECRET_KEY, algorithm="HS256")
+            access_token = jwt.encode(
+                {
+                    "id": user.id,
+                    "exp": datetime.utcnow() + timedelta(minutes=5),
+                },
+                SECRET_KEY,
+                algorithm="HS256",
+            )
             return JsonResponse(
                 {"Message": "LOGIN_SUCCESS", "token": access_token}, status=200
             )
