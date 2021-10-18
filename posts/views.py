@@ -36,9 +36,7 @@ class PostsView(View):
             LIMIT = POSTING_COUNT
 
         posts = (
-            Post.objects.all()
-            .select_related("author")
-            .order_by("-created_at")[OFFSET:LIMIT]
+            Post.objects.all().select_related("author").order_by("-id")[OFFSET:LIMIT]
         )
 
         data = [
@@ -81,7 +79,7 @@ class PostView(View):
             post_obj = Post.objects.get(id=post_id)
 
             if post_obj.author != request.user:
-                return JsonResponse({"Result": "NOT_AUTHORIZATION_USER"}, status=401)
+                return JsonResponse({"Message": "NOT_AUTHORIZATION_USER"}, status=403)
 
             post_obj.post = data["post"]
             post_obj.save()
@@ -100,7 +98,7 @@ class PostView(View):
             post_obj = Post.objects.get(id=post_id)
 
             if post_obj.author != request.user:
-                return JsonResponse({"Result": "NOT_AUTHORIZATION_USER"}, status=401)
+                return JsonResponse({"Message": "NOT_AUTHORIZATION_USER"}, status=403)
 
             post_obj.delete()
 

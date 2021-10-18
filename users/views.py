@@ -39,8 +39,6 @@ class SignUpView(View):
 
         except KeyError:
             return JsonResponse({"Message": "KEY_ERROR"}, status=400)
-        except DataError:
-            return JsonResponse({"Message": "DATA_TOO_LONG"}, status=400)
 
 
 class LoginView(View):
@@ -49,18 +47,18 @@ class LoginView(View):
 
         try:
             if not User.objects.filter(email=data["email"]).exists():
-                return JsonResponse({"Message": "INVALID_USER"}, status=401)
+                return JsonResponse({"Message": "USER_DOES_NOT_EXIST"}, status=401)
 
             user = User.objects.get(email=data["email"])
 
             if not bcrypt.checkpw(
                 data["password"].encode("utf-8"), user.password.encode("utf-8")
             ):
-                return JsonResponse({"Message": "PASSWORD ERROR"}, status=401)
+                return JsonResponse({"Message": "INVALID_PASSWORD"}, status=403)
 
             access_token = jwt.encode({"id": user.id}, SECRET_KEY, algorithm="HS256")
             return JsonResponse(
-                {"Message": "SUCCESS", "token": access_token}, status=200
+                {"Message": "LOGIN_SUCCESS", "token": access_token}, status=200
             )
 
         except KeyError:
