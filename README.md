@@ -214,6 +214,7 @@ curl --location --request POST 'http://127.0.0.1:8000/posts/1' \
 curl --location --request GET 'http://127.0.0.1:8000/posts/1'
 ```
 - Response
+    
 | status_code | json |
 |-------------|------|
 | 204         | x    |
