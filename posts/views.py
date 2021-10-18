@@ -1,6 +1,6 @@
 import json
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views import View
 
 from users.decorator import login_decorator
@@ -102,7 +102,7 @@ class PostView(View):
 
             post_obj.delete()
 
-            return JsonResponse({"Message": "SUCESS_DELETE"}, status=204)
+            return HttpResponse(status=204)
 
         except Post.DoesNotExist:
             return JsonResponse({"Message": "POST_DOES_NOT_EXIST"}, status=404)
