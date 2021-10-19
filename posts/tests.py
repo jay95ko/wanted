@@ -99,6 +99,10 @@ class ContentTest(TestCase):
         client = Client()
         response = client.get("/posts")
 
+        created_at1 = Post.objects.get(id=1).created_at
+        created_at2 = Post.objects.get(id=2).created_at
+        created_at3 = Post.objects.get(id=3).created_at
+
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.json(),
@@ -109,17 +113,17 @@ class ContentTest(TestCase):
                         {
                             "post": "i'm wecoder3",
                             "author": "Mark",
-                            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                            "created_at": created_at1.strftime("%Y-%m-%d %H:%M:%S"),
                         },
                         {
                             "post": "i'm wecoder2",
                             "author": "Mark",
-                            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                            "created_at": created_at2.strftime("%Y-%m-%d %H:%M:%S"),
                         },
                         {
                             "post": "i'm wecoder1",
                             "author": "Mark",
-                            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                            "created_at": created_at3.strftime("%Y-%m-%d %H:%M:%S"),
                         },
                     ],
                 }
@@ -130,6 +134,8 @@ class ContentTest(TestCase):
         client = Client()
         response = client.get("/posts/1")
 
+        created_at = Post.objects.get(id=1).created_at
+
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.json(),
@@ -137,7 +143,7 @@ class ContentTest(TestCase):
                 "Result": {
                     "post": "i'm wecoder1",
                     "author": "Mark",
-                    "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "created_at": created_at.strftime("%Y-%m-%d %H:%M:%S"),
                 }
             },
         )
