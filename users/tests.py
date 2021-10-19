@@ -139,7 +139,10 @@ class SignInTest(TestCase):
 
     def test_signinview_post_invalid_keys(self):
         client = Client()
-        user = {"email": "Mark1@stark.com", "pass": "test1234**", "signup_type": "FLIX"}
+        user = {
+            "email": "Mark1@stark.com",
+            "pass": "test1234**",
+        }
         response = client.post(
             "/users/login", json.dumps(user), content_type="application/json"
         )
