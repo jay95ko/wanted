@@ -49,7 +49,7 @@ class PostsView(View):
         ]
 
         result = {
-            "count": LIMIT - OFFSET,
+            "count": len(posts),
             "data": data,
         }
 
