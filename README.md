@@ -22,9 +22,9 @@ ___
 | POST   | /users/login  | email, password       | 로그인        |
 | GET    | /posts        |                       | 게시물 리스트 확인 |
 | POST   | /posts        | post                  | 게시물 생성     |
-| GET    | /posts/<id>   |                       | 게시물 확인     |
-| PATCH  | /posts/<id>   | post                  | 게시물 수정     |
-| DELETE | /posts/<id>   |                       | 게시물 삭제     |
+| GET    | /posts/id     |                        | 게시물 확인     |
+| PATCH  | /posts/id     | post                  | 게시물 수정     |
+| DELETE | /posts/id     |                       | 게시물 삭제     |
 ___
 ## api 명세(request/response 서술 필요)
 ### 1. 회원가입
@@ -153,7 +153,7 @@ curl --location --request POST 'http://127.0.0.1:8000/posts' \
 
 ### 5. 게시물 확인
 - METHOD : GET
-- URL : /posts/<id>
+- URL : /posts/id
 - Path PARAMS
 
 | 항목  | 데이터 형 | 예시  | 비고  |
@@ -176,7 +176,7 @@ curl --location --request GET 'http://127.0.0.1:8000/posts/1'
 
 ### 6. 게시물 수정
 - METHOD : PATCH
-- URL : /posts/<id>
+- URL : /posts/id
 - Path PARAMS
 
 | 항목  | 데이터 형 | 예시  | 비고  |
@@ -203,7 +203,7 @@ curl --location --request POST 'http://127.0.0.1:8000/posts/1' \
 
 ### 7. 게시물 삭제
 - METHOD : DELETE
-- URL : /posts/<id>
+- URL : /posts/id
 - Path PARAMS
 
 | 항목  | 데이터 형 | 예시  | 비고  |
@@ -214,6 +214,7 @@ curl --location --request POST 'http://127.0.0.1:8000/posts/1' \
 curl --location --request GET 'http://127.0.0.1:8000/posts/1'
 ```
 - Response
+    
 | status_code | json |
 |-------------|------|
 | 204         | x    |
