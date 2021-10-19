@@ -98,22 +98,13 @@ class SignInTest(TestCase):
     def tearDown(self):
         User.objects.all().delete()
 
-    @patch("requests.post")
-    def test_signinview_post_success(self, mocked_requests):
+    def test_signinview_post_success(self):
         client = Client()
         user = {
             "email": "Mark1@stark.com",
             "password": "test1234**",
         }
 
-        class MockedResponse:
-            def json(self):
-                return {
-                    "Message": "LOGIN_SUCCESS",
-                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.bm4G8wIigOyF9JqbQnAEfOF-O3i74mi6XRH_ojkdo-U",
-                }
-
-        mocked_requests.post = MagicMock(return_value=MockedResponse())
         response = client.post(
             "/users/login", json.dumps(user), content_type="application/json"
         )
